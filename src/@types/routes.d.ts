@@ -1,7 +1,9 @@
 type RouteItem = {
-  path: string;
-  component: string;
+  path?: string;
+  component?: any;
   name?: string;
   children?: RouteItem[];
-  icon?:any
+  icon?: any;
+  key: string;
+  hideInMenu?: boolean;
 };
