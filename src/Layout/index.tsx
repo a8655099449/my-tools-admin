@@ -9,7 +9,14 @@ import React, {
 } from "react";
 
 interface IProps {}
-import { Link, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import {
+  Link,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import styles from "./layout.module.less";
 
 const { Sider, Content } = Layout;
@@ -30,6 +37,7 @@ import routes from "../config/routes";
 import getFlattenRoutes from "./loadRoute";
 import NavBar from "@/components/NavBar";
 import BaseContext, { getContext } from "./components/BaseContext";
+import lazyload from "@/components/lazyload";
 
 const isArray = Array.isArray;
 function getIconFromKey(key) {
@@ -79,9 +87,15 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
   function renderRoutes() {
     routeMap.current.clear();
     const nodes: any[] = [];
-    function travel(_routes, level, parentNode: any[] = []) {
+    function travel(
+      _routes: RouteItem[],
+      level: number,
+      parentNode: any[] = []
+    ) {
       return _routes.map((route) => {
-        const { breadcrumb = true } = route;
+        const { breadcrumb = true, hideInMenu } = route;
+        if (hideInMenu) return null;
+
         const iconDom = getIconFromKey(route.key);
         const titleDom = (
           <>
@@ -163,13 +177,25 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
         <Content
           style={{
             backgroundColor: `var(--color-bg-3)`,
-            padding:10
+            padding: 10,
           }}
         >
           <Switch>
             {_routes.map(({ component, key }) => {
-              return <Route key={key} path={`/${key}`} component={component} />;
+              return (
+                <Route key={key} path={`/${key}`} component={component} exact />
+              );
             })}
+
+            <Route exact path="/">
+              <Redirect to={`/home`} />
+            </Route>
+
+            <Route
+              exact
+              path="*"
+              component={lazyload(() => import(`../pages/404`))}
+            ></Route>
           </Switch>
         </Content>
       </Layout>

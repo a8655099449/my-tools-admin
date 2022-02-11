@@ -8,7 +8,7 @@ const index: FC<IProps> = (): ReactElement => {
 
    return <div>
       {
-         Array(1000).fill('').map((_,i)=><li>{i}</li>)
+         Array(1000).fill('').map((_,i)=><li key={i}>{i}</li>)
 
       }
    </div>;

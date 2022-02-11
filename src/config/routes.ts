@@ -1,12 +1,10 @@
 const routes: RouteItem[] = [
   {
-    path: "/home",
     component: "@/pages/home",
     key: `home`,
     name: "首页",
   },
   {
-    path: "/list",
     key: `list`,
     name: "列表",
     children: [
@@ -25,6 +23,11 @@ const routes: RouteItem[] = [
           }
         ]
       },
+      {
+        name:'列表详情页面',
+        hideInMenu:true,
+        key:'list/listDetail'
+      }
     ],
   },
 

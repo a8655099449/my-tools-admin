@@ -1,8 +1,11 @@
+import lazyload from "@/components/lazyload";
 import { Button, Drawer, DrawerProps, Trigger } from "@arco-design/web-react";
 import React, { FC, ReactElement } from "react";
 
 import styles from "../index.module.less";
-import ColorPicker from "./ColorPicker";
+// import ColorPicker from "./ColorPicker";
+
+const ColorPicker = lazyload(() => import("./ColorPicker"));
 
 const SettingView: FC<DrawerProps> = ({ ...restProps }): ReactElement => {
   return (
