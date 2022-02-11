@@ -1,5 +1,12 @@
 import { Layout, Menu } from "@arco-design/web-react";
-import React, { FC, ReactElement, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 interface IProps {}
 import { Link, Route, Switch, useHistory, useLocation } from "react-router-dom";
@@ -21,6 +28,8 @@ import {
 } from "@arco-design/web-react/icon";
 import routes from "../config/routes";
 import getFlattenRoutes from "./loadRoute";
+import NavBar from "@/components/NavBar";
+import BaseContext, { getContext } from "./components/BaseContext";
 
 const isArray = Array.isArray;
 function getIconFromKey(key) {
@@ -42,7 +51,7 @@ function getIconFromKey(key) {
     case "user":
       return <IconUser />;
     default:
-      return <span></span>;
+      return <IconUser />;
   }
 }
 
@@ -54,19 +63,18 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
 
   const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
   const [menuKey, setMenuKey] = useState(pathname);
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
+  const { setting, setSetting } = getContext();
+  const { collapsed } = setting;
 
-  const [selectedKeys, setSelectedKeys] =
-  useState<string[]>([]);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
-
-  useEffect(()=>{
-    const _key = pathname.replace(/^\// ,'')
-    setSelectedKeys([_key])
-
-  },[pathname])
+  useEffect(() => {
+    const _key = pathname.replace(/^\//, "");
+    setSelectedKeys([_key]);
+  }, [pathname]);
 
   function renderRoutes() {
     routeMap.current.clear();
@@ -127,39 +135,45 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
     travel(routes, 1);
     return nodes;
   }
-  console.log('👴2022-02-09 16:31:22 index.tsx line:130',openKeys)
   return (
-    <Layout className={`${styles["layout"]}`}>
-      {/* <SideBar routes={routes} /> */}
-      <Sider collapsed={collapsed} className={`${styles["sider"]}`}>
-        <Menu
-        openKeys={openKeys}
-          collapse={collapsed}
-          onClickSubMenu={(key,openKeys) => {
-            // console.log("👴2022-02-09 16:14:15 index.tsx line:124", p);
-            setOpenKeys(openKeys)
-          }}
-          selectedKeys={selectedKeys}
-         
-        >
-          {renderRoutes()}
-        </Menu>
-        <div
-          className={`${styles["collapsed-btn"]}`}
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          {collapsed ? <IconMenuUnfold /> : <IconMenuFold />}
-        </div>
-      </Sider>
+    <>
+      <NavBar />
+      <Layout className={`${styles["layout"]}`}>
+        {/* <SideBar routes={routes} /> */}
+        <Sider collapsed={collapsed} className={`${styles["sider"]}`}>
+          <Menu
+            openKeys={openKeys}
+            collapse={collapsed}
+            onClickSubMenu={(key, openKeys) => {
+              // console.log("👴2022-02-09 16:14:15 index.tsx line:124", p);
+              setOpenKeys(openKeys);
+            }}
+            selectedKeys={selectedKeys}
+          >
+            {renderRoutes()}
+          </Menu>
+          <div
+            className={`${styles["collapsed-btn"]}`}
+            onClick={() => setSetting({ ...setting, collapsed: !collapsed })}
+          >
+            {collapsed ? <IconMenuUnfold /> : <IconMenuFold />}
+          </div>
+        </Sider>
 
-      <Content>
-        <Switch>
-          {_routes.map(({ component, key }) => {
-            return <Route key={key} path={`/${key}`} component={component} />;
-          })}
-        </Switch>
-      </Content>
-    </Layout>
+        <Content
+          style={{
+            backgroundColor: `var(--color-bg-3)`,
+            padding:10
+          }}
+        >
+          <Switch>
+            {_routes.map(({ component, key }) => {
+              return <Route key={key} path={`/${key}`} component={component} />;
+            })}
+          </Switch>
+        </Content>
+      </Layout>
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 .layout {
-  height: 100vh;
+  height: calc(100vh - 60px);
   .sider {
     position: relative;
     .collapsed-btn {
@@ -8,9 +8,13 @@
       right: 12px;
       cursor: pointer;
       padding: 0 4px;
+      color:var(--color-text-3);
       &:hover {
         background-color: var(--color-fill-3);
       }
     }
+  }
+  .content {
+    background-color: var(--color-fill-2);
   }
 }
