@@ -1,12 +1,15 @@
-import { getContext } from "@/Layout/components/BaseContext";
-import { Select } from "@arco-design/web-react";
+import { getContext } from "@/context/BaseContext";
+import { Dropdown, Menu, Message, Modal, Select } from "@arco-design/web-react";
 import {
+  IconExport,
   IconLanguage,
   IconMoonFill,
   IconSettings,
   IconSunFill,
+  IconUser,
 } from "@arco-design/web-react/icon";
 import React, { FC, ReactElement, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import logo from "../../logo.svg";
 import IconButton from "../IconButton";
 import styles from "./index.module.less";
@@ -16,10 +19,12 @@ interface IProps {}
 const NavBar: FC<IProps> = (): ReactElement => {
   const [settingViewShow, settingSetViewShow] = useState(false);
 
-  const { setting, setSetting } = getContext();
+  const { setting, setSetting, userInfo, setUserInfo } = getContext();
   const { theme } = setting;
   const isDark = theme !== "dark";
   // console.log('👴2022-02-11 11:37:57 index.tsx line:22',isDark)
+  const { replace } = useHistory();
+  const { pathname } = useLocation();
 
   return (
     <div className={`${styles["navbar"]}`}>
@@ -73,6 +78,41 @@ const NavBar: FC<IProps> = (): ReactElement => {
           icon={<IconSettings />}
           onClick={() => settingSetViewShow(true)}
         />
+        <Dropdown
+          droplist={
+            <Menu>
+              <Menu.Item key="name">
+                <IconUser />
+                {userInfo.acc}
+              </Menu.Item>
+              <Menu.Item
+                key="logout"
+                onClick={(e) => {
+                  Modal.confirm({
+                    title:'退出登录提示',
+                    content: "是否确认退出？",
+                    onOk() {
+                      setUserInfo({});
+                      replace(`/login?redirect=${pathname}`);
+                      Message.success('退出登录成功！')
+                    },
+                  });
+                }}
+              >
+                <IconExport />
+                退出登录
+              </Menu.Item>
+            </Menu>
+          }
+          position="br"
+        >
+          <IconButton
+            icon={<IconUser />}
+            style={{
+              marginLeft: 10,
+            }}
+          />
+        </Dropdown>
       </div>
     </div>
   );

@@ -4,19 +4,19 @@ import "./global.less";
 import BaseLayout from "./Layout";
 import "@arco-design/web-react/dist/css/arco.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import BaseContext from "./Layout/components/BaseContext";
+import BaseContext from "./context/BaseContext";
 import login from "./pages/login";
 
 const App = () => {
   return (
-    <BaseContext>
-      <BrowserRouter>
+    <BrowserRouter>
+      <BaseContext>
         <Switch>
-          <Route path={`/login`}  component={login} />
+          <Route path={`/login`} component={login} />
           <Route path={`/`} component={BaseLayout}></Route>
         </Switch>
-      </BrowserRouter>
-    </BaseContext>
+      </BaseContext>
+    </BrowserRouter>
   );
 };
 

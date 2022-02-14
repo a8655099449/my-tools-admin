@@ -1,4 +1,4 @@
-import { getContext } from "@/Layout/components/BaseContext";
+import { getContext } from "@/context/BaseContext";
 import { Button, Drawer, DrawerProps, Trigger } from "@arco-design/web-react";
 import React, { FC, ReactElement } from "react";
 import { SketchPicker } from "react-color";

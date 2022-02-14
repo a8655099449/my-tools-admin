@@ -4,7 +4,7 @@ function getFlattenRoutes(routes: RouteItem[]): any {
 
   const mod = import.meta.glob("../pages/**/[a-z[]*.tsx");
   const res: any[] = [];
-  console.log('👴2022-02-09 13:52:42 loadRoute.ts line:6',mod)
+
   function travel(_routes: RouteItem[]) {
     _routes.forEach((route) => {
 

@@ -1,4 +1,4 @@
-import { Layout, Menu } from "@arco-design/web-react";
+import { Layout, Menu, Message } from "@arco-design/web-react";
 import React, {
   FC,
   ReactElement,
@@ -36,8 +36,11 @@ import {
 import routes from "../config/routes";
 import getFlattenRoutes from "./loadRoute";
 import NavBar from "@/components/NavBar";
-import BaseContext, { getContext } from "./components/BaseContext";
+// import{  } from "./components/BaseContext";
+
 import lazyload from "@/components/lazyload";
+import { getContext } from "@/context/BaseContext";
+import Auth from "./components/Auth";
 
 const isArray = Array.isArray;
 function getIconFromKey(key) {
@@ -69,6 +72,8 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
   }, []);
   const { pathname } = useLocation();
 
+  const { userInfo, currentRoute } = getContext();
+  console.log("👴2022-02-14 17:07:28 index.tsx line:75", currentRoute);
   const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
   const [menuKey, setMenuKey] = useState(pathname);
   // const [collapsed, setCollapsed] = useState(false);
@@ -93,8 +98,12 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
       parentNode: any[] = []
     ) {
       return _routes.map((route) => {
-        const { breadcrumb = true, hideInMenu } = route;
+        const { breadcrumb = true, hideInMenu, auth } = route;
         if (hideInMenu) return null;
+
+        if (auth && !auth.some((item) => userInfo.auth?.includes(item))) {
+          return null;
+        }
 
         const iconDom = getIconFromKey(route.key);
         const titleDom = (
@@ -149,6 +158,12 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
     travel(routes, 1);
     return nodes;
   }
+
+  if (!userInfo.acc) {
+    Message.warning("请先进行登录");
+    return <Redirect to={`/login?redirect=${pathname}`} />;
+  }
+
   return (
     <>
       <NavBar />
@@ -180,23 +195,30 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
             padding: 10,
           }}
         >
-          <Switch>
-            {_routes.map(({ component, key }) => {
-              return (
-                <Route key={key} path={`/${key}`} component={component} exact />
-              );
-            })}
+          <Auth>
+            <Switch>
+              {_routes.map(({ component, key }) => {
+                return (
+                  <Route
+                    key={key}
+                    path={`/${key}`}
+                    component={component}
+                    exact
+                  />
+                );
+              })}
 
-            <Route exact path="/">
-              <Redirect to={`/home`} />
-            </Route>
+              <Route exact path="/">
+                <Redirect to={`/home`} />
+              </Route>
 
-            <Route
-              exact
-              path="*"
-              component={lazyload(() => import(`../pages/404`))}
-            ></Route>
-          </Switch>
+              <Route
+                exact
+                path="*"
+                component={lazyload(() => import(`../pages/404`))}
+              ></Route>
+            </Switch>
+          </Auth>
         </Content>
       </Layout>
     </>

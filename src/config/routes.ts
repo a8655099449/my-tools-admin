@@ -11,35 +11,35 @@ const routes: RouteItem[] = [
       {
         path: "/list/list1",
         name: "列表1",
-        key:'list/list1',
-        children:[
+        key: "list/list1",
+        children: [
           {
-            name:'list2',
-            key:'list/list1/list2'
+            name: "list2",
+            key: "list/list1/list2",
           },
           {
-            name:"list",
-            key:'list'
-          }
-        ]
+            name: "list",
+            key: "list",
+          },
+        ],
       },
       {
-        name:'列表详情页面',
-        hideInMenu:true,
-        key:'list/listDetail'
-      }
+        name: "列表详情页面",
+        hideInMenu: true,
+        key: "list/listDetail",
+        auth: ["admin"],
+      },
     ],
-  },
-
-  {
-    name:'profileA',
-    key:'profile/a'
+    auth:['admin']
   },
   {
-    name:'profileB',
-    key:'profile/b'
+    name: "profileA",
+    key: "profile/a",
   },
-  
+  {
+    name: "profileB",
+    key: "profile/b",
+  },
 ];
 
 export default routes;

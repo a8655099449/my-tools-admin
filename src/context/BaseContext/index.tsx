@@ -3,7 +3,9 @@ import React, { FC, ReactElement, useContext, createContext } from "react";
 import useSetting, { UseSetting } from "./useSetting";
 import zhCN from "@arco-design/web-react/es/locale/zh-CN";
 import enUS from "@arco-design/web-react/es/locale/en-US";
-export type CtxProps = UseSetting;
+import { UserHooks, userHooks } from "./useUserInfo";
+import { TUseRoutes, useRoutes } from "./useRoute";
+export type CtxProps = UseSetting & UserHooks & TUseRoutes;
 // @ts-ignore
 const Context = createContext<CtxProps>({});
 
@@ -13,6 +15,9 @@ interface IProps {}
 const BaseContext: FC<IProps> = ({ children }): ReactElement => {
   const p = useSetting();
   const lang = p.setting.lang;
+  const u = userHooks();
+
+  const r = useRoutes();
 
   function getArcoLocale() {
     switch (lang) {
@@ -26,7 +31,7 @@ const BaseContext: FC<IProps> = ({ children }): ReactElement => {
   }
 
   return (
-    <Context.Provider value={{ ...p }}>
+    <Context.Provider value={{ ...p, ...u, ...r }}>
       <ConfigProvider locale={getArcoLocale()}>{children}</ConfigProvider>
     </Context.Provider>
   );
