@@ -1,5 +1,9 @@
+type Lang = "zh-CN" | "en-US";
+
 type Locale = {
-  "";
+  [k in Lang]: {
+    [key in string]: string;
+  };
 };
 
 type UserInfo = {
@@ -7,4 +11,10 @@ type UserInfo = {
   pwd?: string;
   auth?: string[];
   remember?: boolean;
+};
+type SettingOptions = {
+  themeColor: string;
+  lang: Lang;
+  theme: "dark" | "light";
+  collapsed: boolean;
 };
