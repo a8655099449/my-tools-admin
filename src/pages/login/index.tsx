@@ -1,5 +1,6 @@
 import { USER_INFO } from "@/config/localKeys";
 import { getContext } from "@/context/BaseContext";
+import useLocale from "@/utils/useLocale";
 import useStorage from "@/utils/useStorage";
 import {
   Button,
@@ -19,37 +20,31 @@ import React, { useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 import styles from "./index.module.less";
+import i18n from "./locale";
 
 export default function login() {
   // const form = useRef<FormInstance>();
   const [form] = Form.useForm<UserInfo>();
-  const {replace} = useHistory()
+  const { replace } = useHistory();
 
-  // const [localUser, setUser] = useStorage<UserInfo>(USER_INFO, {
-  //   acc: "",
-  //   pwd: "",
-  //   remember: true,
-  // });
+  const { userInfo, setUserInfo } = getContext();
 
-  const {userInfo , setUserInfo} = getContext()
-
+  const locale = useLocale(i18n);
 
   const handleLogin = async () => {
     let value = await form.validate();
-
     if (value.acc === "admin") {
       value.auth = ["admin"];
     }
     setUserInfo(value);
-    replace('/')
-    Message.success('登录成功')
-
+    replace("/");
+    Message.success("登录成功");
   };
   const required = true;
   return (
     <div className={`${styles["login"]}`}>
       <div className={`${styles["login-box"]}`}>
-        <h1>Login</h1>
+        <h1>{locale["login.title"]}</h1>
         <Form
           wrapperCol={{ span: 24 }}
           form={form}
@@ -104,7 +99,7 @@ export default function login() {
 
           <Form.Item>
             <Button type="primary" long onClick={handleLogin}>
-              login
+              {locale["login.title"]}
             </Button>
           </Form.Item>
         </Form>
