@@ -2,6 +2,7 @@ import { getContext } from "@/context/BaseContext";
 import { Dropdown, Menu, Message, Modal, Select } from "@arco-design/web-react";
 import {
   IconExport,
+  IconGithub,
   IconLanguage,
   IconMoonFill,
   IconSettings,
@@ -38,6 +39,12 @@ const NavBar: FC<IProps> = (): ReactElement => {
         vite-react-admin
       </div>
       <div className={`${styles["right-bar"]}`}>
+        <IconButton
+          icon={<IconGithub />}
+          className="mr-10"
+          href="https://github.com/a8655099449/react-vite-admin"
+          target="_block"
+        />
         <IconButton
           icon={isDark ? <IconMoonFill /> : <IconSunFill />}
           onClick={(e) => {
@@ -89,12 +96,12 @@ const NavBar: FC<IProps> = (): ReactElement => {
                 key="logout"
                 onClick={(e) => {
                   Modal.confirm({
-                    title:'退出登录提示',
+                    title: "退出登录提示",
                     content: "是否确认退出？",
                     onOk() {
                       setUserInfo({});
                       replace(`/login?redirect=${pathname}`);
-                      Message.success('退出登录成功！')
+                      Message.success("退出登录成功！");
                     },
                   });
                 }}
