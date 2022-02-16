@@ -73,7 +73,7 @@ const routes = [
 此项目中使用React原生的[`context`](https://zh-hans.reactjs.org/docs/context.html#reactcreatecontext)来做全局的状态管理。
 
 
-组件的路径：`src\context\BaseContext\index.tsx`
+组件的路径：[`src\context\BaseContext\index.tsx`](/blob/master/src/context/BaseContext/index.tsx)
 
 可以在项目的任何组件中使用方法`getContext`来**获取或者设置**全局的状态
 
