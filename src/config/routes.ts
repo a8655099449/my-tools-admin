@@ -41,6 +41,11 @@ const routes: RouteItem[] = [
     key: "profile/b",
     auth: ["admin"],
   },
+  {
+    name: "表格",
+    key: "table",
+    auth: ["admin"],
+  },
 ];
 
 export default routes;
