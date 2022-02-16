@@ -6,7 +6,7 @@ const List: FC<IProps> = (): ReactElement => {
    return <div>
      我是列表页面
     <Link to={`/list/listDetail/556`} >
-      去列表详情页
+      动态路由的详情页面
     </Link>
    </div>;
 };
