@@ -1,5 +1,8 @@
 import { USER_INFO } from "@/config/localKeys";
 import { getContext } from "@/context/BaseContext";
+import { wait } from "@/utils";
+import { isDev } from "@/utils/is";
+import { useQuery } from "@/utils/use";
 import useLocale from "@/utils/useLocale";
 import useStorage from "@/utils/useStorage";
 import {
@@ -16,7 +19,8 @@ import {
   IconLock,
   IconUser,
 } from "@arco-design/web-react/icon";
-import React, { useRef } from "react";
+import axios from "axios";
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import styles from "./index.module.less";
@@ -26,20 +30,45 @@ export default function login() {
   // const form = useRef<FormInstance>();
   const [form] = Form.useForm<UserInfo>();
   const { replace } = useHistory();
-
+  const [loading, setLoading] = useState(false);
   const { userInfo, setUserInfo } = getContext();
-
   const locale = useLocale(i18n);
 
+  const { redirect = "/" } = useQuery();
   const handleLogin = async () => {
+    setLoading(true);
     let value = await form.validate();
-    if (value.acc === "admin") {
-      value.auth = ["admin"];
+    if (isDev) {
+      axios
+        .post(`/user/login`, value)
+        .then((res) => {
+          const { code, data, msg } = res.data;
+          if (code === 0) {
+            // setUserInfo({ ...value, ...data });
+            // replace(redirect);
+            loginSuccess({ ...value, ...data });
+            // Message.success("登录成功");
+          } else {
+            Message.error(msg);
+          }
+        })
+        .finally(() => setLoading(false));
+    } else {
+      await wait();
+      if (value.acc === "admin") {
+        value.auth = ["admin"];
+      }
+      loginSuccess(value);
     }
-    setUserInfo(value);
-    replace("/");
+  };
+
+  const loginSuccess = (data: UserInfo) => {
+    setUserInfo({ ...data });
+    setLoading(false);
+    replace(redirect);
     Message.success("登录成功");
   };
+
   const required = true;
   return (
     <div className={`${styles["login"]}`}>
@@ -98,7 +127,7 @@ export default function login() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" long onClick={handleLogin}>
+            <Button type="primary" long onClick={handleLogin} loading={loading}>
               {locale["login.title"]}
             </Button>
           </Form.Item>

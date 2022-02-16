@@ -7,7 +7,7 @@ npm run dev
 ```
 
 
-[项目预览地址](http://vite-admin.woai996.com/)
+[项目预览地址]()
 
 **设计的目的**
 
@@ -30,8 +30,7 @@ npm run dev
 
 
 
-目前实现了 **自动生成菜单** 、**全局状态管理** 、 **用户登录** 、 **多语言配置** 、 **主题切换**
-
+目前实现了 **自动生成菜单** 、[**全局状态管理**](#状态管理) 、 **用户登录** 、 [**多语言配置**](#多语言配置) 、 **主题切换** 、 [mock数据](#mock数据) 、 [**权限验证**](#权限验证)
 
 
 
@@ -66,10 +65,9 @@ const routes = [
 |    `key`     | key值是组件路径的位置，同时也会做为路由的`path` ,一个`pages/list/index.tsx`的组件，key值就是`list`。页面中的path就是`/list` ，key值作为路由的关键参数，建议不要重复，否则难以保证不会出现奇怪的问题 | 是       | string   |
 |  `children`  | 子菜单，使用这个属性之后将会在菜单中生成子菜单，                                                                                                                                                    | 否       | route[]  |
 | `hideInMenu` | 设置为`true`后不会在左侧菜单中显示                                                                                                                                                                  | 否       | boolean  |
-|    `icon`    | 菜单的图标                                                                                                                                                                                          | 否       | string   |
+|    `icon`    | 菜单的图标 ，在    `src\Layout\index.tsx` 存在一个icon映射的函数，建议出现在菜单中的理由都设置icon，以保证美观                                                                                      | 否       | string   |
 |    `auth`    | 权限配置                                                                                                                                                                                            | 否       | string[] |
-
-
+|    `path`    | 如果配置了path,将默认以`path`作为路由地址。这是为了定制特制路由名而准备，比如`动态路由`                                                                                                             | 否       | string[] |
 ## 状态管理
 
 此项目中使用React原生的[`context`](https://zh-hans.reactjs.org/docs/context.html#reactcreatecontext)来做全局的状态管理。
@@ -93,12 +91,12 @@ const routes = [
 
 ### setting参数说明
 
-|    参数名    | 说明                | 类型    |
-| :----------: | ------------------- | ------- |
-| `collapsed`  | 是否展开侧边栏      | boolean |
-|   `theme`    | 日间模式 / 夜间模式 | `dark \ light` |
-| `themeColor` | 主题颜色 | `dark \ light` |
-|    `lang`    | 语言 | `zh-CN` \ `en-US` |
+|    参数名    | 说明                | 类型              |
+| :----------: | ------------------- | ----------------- |
+| `collapsed`  | 是否展开侧边栏      | boolean           |
+|   `theme`    | 日间模式 / 夜间模式 | `dark \ light`    |
+| `themeColor` | 主题颜色            | `dark \ light`    |
+|    `lang`    | 语言                | `zh-CN` \ `en-US` |
 
 
 ## 权限验证
@@ -112,3 +110,6 @@ const routes = [
 多语言配置首先会配置 `arco` 组件库的默认语言配置，考虑到这个功能`多语言配置`在国内中并必须，为了方便拆卸，项目中只在`src\pages\login\index.tsx`组件中使用作为示例。
 
 
+## mock数据
+
+项目中也配备了mock的功能，在`src\pages\login\index.tsx`中用使用示例，如果要新增接口，可以在`src/mock/index.ts`中配置，[参考文档](https://github.com/vbenjs/vite-plugin-mock)

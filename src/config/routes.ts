@@ -24,21 +24,22 @@ const routes: RouteItem[] = [
         ],
       },
       {
-        name: "列表详情页面",
+        name: "动态路由",
         hideInMenu: true,
         key: "list/listDetail",
-        auth: ["admin"],
+        path: "/list/listDetail/:id",
+        // auth: ["admin"],
       },
     ],
-    auth:['admin']
   },
   {
-    name: "profileA",
+    name: "动态路由",
     key: "profile/a",
   },
   {
-    name: "profileB",
+    name: "权限控制",
     key: "profile/b",
+    auth: ["admin"],
   },
 ];
 

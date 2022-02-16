@@ -197,11 +197,11 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
         >
           <Auth>
             <Switch>
-              {_routes.map(({ component, key }) => {
+              {_routes.map(({ component, key, path }) => {
                 return (
                   <Route
                     key={key}
-                    path={`/${key}`}
+                    path={path || `/${key}`}
                     component={component}
                     exact
                   />

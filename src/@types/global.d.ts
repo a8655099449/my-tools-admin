@@ -11,6 +11,7 @@ type UserInfo = {
   pwd?: string;
   auth?: string[];
   remember?: boolean;
+  name?: string;
 };
 type SettingOptions = {
   themeColor: string;

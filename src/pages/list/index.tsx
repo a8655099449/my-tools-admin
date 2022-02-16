@@ -5,7 +5,7 @@ interface IProps {}
 const List: FC<IProps> = (): ReactElement => {
    return <div>
      我是列表页面
-    <Link to={`/list/listDetail`} >
+    <Link to={`/list/listDetail/556`} >
       去列表详情页
     </Link>
    </div>;
