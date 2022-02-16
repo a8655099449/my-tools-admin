@@ -73,7 +73,7 @@ const routes = [
 此项目中使用React原生的[`context`](https://zh-hans.reactjs.org/docs/context.html#reactcreatecontext)来做全局的状态管理。
 
 
-组件的路径：[`src\context\BaseContext\index.tsx`](/blob/master/src/context/BaseContext/index.tsx)
+组件的路径：[`src\context\BaseContext\index.tsx`](/src/context/BaseContext/index.tsx)
 
 可以在项目的任何组件中使用方法`getContext`来**获取或者设置**全局的状态
 
@@ -102,7 +102,7 @@ const routes = [
 ## 权限验证
 
 
-权限验证的逻辑主要在`src\Layout\components\Auth.tsx`组件内，使用了简单暴力的方式，如果要支持服务端配置，只要改变`routes`就能完成
+权限验证的逻辑主要在[`src/Layout/components/Auth.tsx`](/src/Layout/components/Auth.tsx)组件内，使用了简单暴力的方式，如果要支持服务端配置，只要改变`routes`就能完成
 
 
 ## 多语言配置
