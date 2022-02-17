@@ -11,7 +11,7 @@ import {
 } from "@arco-design/web-react/icon";
 import React, { FC, ReactElement, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import logo from "../../logo.svg";
+import logo from "@/assets/images/logo.png";
 import IconButton from "../IconButton";
 import styles from "./index.module.less";
 import SettingView from "./SettingView";
@@ -23,7 +23,6 @@ const NavBar: FC<IProps> = (): ReactElement => {
   const { setting, setSetting, userInfo, setUserInfo } = getContext();
   const { theme } = setting;
   const isDark = theme !== "dark";
-  // console.log('👴2022-02-11 11:37:57 index.tsx line:22',isDark)
   const { replace } = useHistory();
   const { pathname } = useLocation();
 
@@ -36,7 +35,7 @@ const NavBar: FC<IProps> = (): ReactElement => {
       />
       <div className={`${styles["logo"]}`}>
         <img src={logo} alt="" />
-        vite-react-admin
+        my-tool
       </div>
       <div className={`${styles["right-bar"]}`}>
         <IconButton
