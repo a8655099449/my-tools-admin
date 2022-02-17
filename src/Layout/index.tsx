@@ -32,6 +32,10 @@ import {
   IconUser,
   IconMenuFold,
   IconMenuUnfold,
+  IconImage,
+  IconHome,
+  IconVoice,
+  IconTags,
 } from "@arco-design/web-react/icon";
 import routes from "../config/routes";
 import getFlattenRoutes from "./loadRoute";
@@ -46,21 +50,13 @@ const isArray = Array.isArray;
 function getIconFromKey(key) {
   switch (key) {
     case "home":
-      return <IconDashboard />;
-    case "list":
-      return <IconList />;
-    case "form":
-      return <IconSettings />;
-    case "profile":
-      return <IconFile />;
-    case "visualization":
+      return <IconHome />;
+    case "tiny-image":
+      return <IconImage />;
+    case "text2voice":
+      return <IconVoice />;
+    case "excel2json":
       return <IconApps />;
-    case "result":
-      return <IconCheckCircle />;
-    case "exception":
-      return <IconExclamationCircle />;
-    case "user":
-      return <IconUser />;
     default:
       return <IconUser />;
   }

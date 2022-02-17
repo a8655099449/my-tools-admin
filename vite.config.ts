@@ -28,5 +28,12 @@ export default ({ command }: ConfigEnv): UserConfigExport => ({
   },
   server: {
     port: 9996,
+    proxy: {
+      "/baidu_token": {
+        target: "https://openapi.baidu.com/oauth/2.0/token",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/baidu_token/, ""),
+      },
+    },
   },
 });

@@ -4,47 +4,19 @@ const routes: RouteItem[] = [
     key: `home`,
     name: "首页",
   },
+
   {
-    key: `list`,
-    name: "列表",
-    children: [
-      {
-        path: "/list/list1",
-        name: "列表1",
-        key: "list/list1",
-        children: [
-          {
-            name: "list2",
-            key: "list/list1/list2",
-          },
-          {
-            name: "list",
-            key: "list",
-          },
-        ],
-      },
-      {
-        name: "动态路由",
-        hideInMenu: true,
-        key: "list/listDetail",
-        path: "/list/listDetail/:id",
-        // auth: ["admin"],
-      },
-    ],
+    name: "图片压缩",
+    key: "tiny-image",
+  },
+
+  {
+    name: "文字转语音",
+    key: "text2voice",
   },
   {
-    name: "动态路由",
-    key: "profile/a",
-  },
-  {
-    name: "权限控制",
-    key: "profile/b",
-    auth: ["admin"],
-  },
-  {
-    name: "表格",
-    key: "table",
-    auth: ["admin"],
+    name: "excel转json",
+    key: "excel2json",
   },
 ];
 
