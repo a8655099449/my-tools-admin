@@ -1,9 +1,5 @@
-
-
-
-
 export function wait(ms = 500) {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function download(link: string, name: string) {
@@ -18,7 +14,6 @@ export function download(link: string, name: string) {
   eleLink.click();
   document.body.removeChild(eleLink);
 }
-
 
 export function downloadFile(name, content) {
   if (typeof name == "undefined") {
@@ -35,4 +30,13 @@ export function downloadFile(name, content) {
   }
   const link = URL.createObjectURL(content);
   download(link, name);
+}
+export function uuid(
+  length = 8,
+  chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+) {
+  let result = "";
+  for (let i = length; i > 0; --i)
+    result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
 }

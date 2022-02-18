@@ -148,7 +148,6 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
         onCancel={() => setVisible(false)}
         onOk={() => {
           const value = JSON.parse(inputText.trim());
-          console.log("👴2022-02-17 11:11:21 index.tsx line:151", value);
           if (Array.isArray(value)) {
             parseData(value);
             setVisible(false);

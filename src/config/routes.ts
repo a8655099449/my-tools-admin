@@ -18,6 +18,14 @@ const routes: RouteItem[] = [
     name: "excel转json",
     key: "excel2json",
   },
+  {
+    name: "useRequest",
+    key: "hooks",
+  },
+  {
+    name: "周报填写",
+    key: "work-report",
+  },
 ];
 
 export default routes;

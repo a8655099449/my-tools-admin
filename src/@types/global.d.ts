@@ -1,3 +1,5 @@
+// import { Dayjs } from "dayjs";
+
 type Lang = "zh-CN" | "en-US";
 
 type Locale = {
@@ -19,3 +21,20 @@ type SettingOptions = {
   theme: "dark" | "light";
   collapsed: boolean;
 };
+
+type Option = {
+  value: any;
+  label: string;
+};
+
+type WorkReportItem = {
+  week: string | Dayjs;
+  date: string | Dayjs;
+  content: string;
+  project: string;
+  workTime: number;
+  id: string;
+  projectName?: string;
+};
+
+type ModalHandleType = "add" | "edit";

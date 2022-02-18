@@ -36,6 +36,7 @@ import {
   IconHome,
   IconVoice,
   IconTags,
+  IconCalendarClock,
 } from "@arco-design/web-react/icon";
 import routes from "../config/routes";
 import getFlattenRoutes from "./loadRoute";
@@ -57,6 +58,8 @@ function getIconFromKey(key) {
       return <IconVoice />;
     case "excel2json":
       return <IconApps />;
+    case "work-report":
+      return <IconCalendarClock />;
     default:
       return <IconUser />;
   }
@@ -69,7 +72,6 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
   const { pathname } = useLocation();
 
   const { userInfo, currentRoute } = getContext();
-  console.log("👴2022-02-14 17:07:28 index.tsx line:75", currentRoute);
   const routeMap = useRef<Map<string, React.ReactNode[]>>(new Map());
   const [menuKey, setMenuKey] = useState(pathname);
   // const [collapsed, setCollapsed] = useState(false);
@@ -170,7 +172,6 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
             openKeys={openKeys}
             collapse={collapsed}
             onClickSubMenu={(key, openKeys) => {
-              // console.log("👴2022-02-09 16:14:15 index.tsx line:124", p);
               setOpenKeys(openKeys);
             }}
             selectedKeys={selectedKeys}
