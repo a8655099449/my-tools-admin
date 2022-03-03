@@ -24,7 +24,7 @@ const HandleList: FC<IProps> = ({
         />
       )}
       {handles.includes("delete") && (
-        <Popconfirm title="是否确认删除？" onOk={onDelete}>
+        <Popconfirm title="是否确认删除？" onOk={onDelete} position="lb">
           <IconDelete style={{ color: "red" }} />
         </Popconfirm>
       )}

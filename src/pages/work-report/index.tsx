@@ -1,6 +1,6 @@
 import HandleList from "@/components/HandleList/HandleList";
 import { YYYY_DD_MM } from "@/config/const";
-import { WORK_REPORT_DB } from "@/config/localKeys";
+import { PROJECT_OPTIONS, WORK_REPORT_DB } from "@/config/localKeys";
 import { uuid } from "@/utils";
 import useStorage from "@/utils/useStorage";
 import {
@@ -15,14 +15,29 @@ import {
 } from "@arco-design/web-react";
 import { IconDelete, IconEdit } from "@arco-design/web-react/icon";
 import dayjs from "dayjs";
-import React, { FC, ReactElement, useRef, useState } from "react";
+import React, { FC, ReactElement, useMemo, useRef, useState } from "react";
+import projectOptions from "./defaultOptions";
+import EditProject from "./EditProject";
 import HandleDrawer, { HandleDrawerInstance } from "./HandleDrawer";
+import ReportDrawer from "./ReportDrawer";
+
+export const weekMap = {
+  1: "星期一",
+  2: "星期二",
+  3: "星期三",
+  4: "星期四",
+  5: "星期五",
+  6: "星期六",
+  0: "星期日",
+};
 
 interface IProps {}
 const WorkReport: FC<IProps> = (): ReactElement => {
   const [data, setData] = useStorage<WorkReportItem[]>(WORK_REPORT_DB, []);
+  const [drawerShow, setDraShow] = useState(false);
+  const [projects, setProjects] = useStorage(PROJECT_OPTIONS, projectOptions);
 
-  const drawer = useRef<HandleDrawerInstance>();
+  const drawer = useRef<HandleDrawerInstance>({ show() {}, edit() {} });
   const [filterValue, setFilterValue] = useState({
     week: dayjs().startOf("week"),
   });
@@ -32,11 +47,27 @@ const WorkReport: FC<IProps> = (): ReactElement => {
     _filterValue[key] = value;
     setFilterValue(_filterValue);
   };
+  const filterData = useMemo(() => {
+    return data
+      .filter((item) => {
+        if (filterValue.week) {
+          const _week = filterValue.week.format(YYYY_DD_MM);
+          return item.week === _week;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        const _a = dayjs(a.date).unix();
+        const _b = dayjs(b.date).unix();
+        return _a - _b;
+      });
+  }, [data, filterValue]);
 
   return (
     <div>
       <HandleDrawer
         ref={drawer}
+        projects={projects}
         onAdd={(e) => {
           if (!e.id) e.id = uuid(16);
           setData([...data, e]);
@@ -50,9 +81,32 @@ const WorkReport: FC<IProps> = (): ReactElement => {
           }
         }}
       />
-      <Button type="primary" onClick={(e) => drawer.current.show()}>
-        新增
-      </Button>
+
+      <ReportDrawer
+        visible={drawerShow}
+        onCancel={() => {
+          setDraShow(false);
+        }}
+        data={filterData}
+      />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
+          <Button
+            type="primary"
+            className={`mr-10`}
+            onClick={() => {
+              setDraShow(true);
+            }}
+          >
+            生成报告
+          </Button>
+          <EditProject projects={projects} setProjects={setProjects} />
+        </div>
+        <Button onClick={() => drawer.current?.show()} type="primary">
+          新增
+        </Button>
+      </div>
+
       <div style={{ marginTop: 10 }}>
         <DatePicker.WeekPicker
           value={filterValue.week}
@@ -62,17 +116,7 @@ const WorkReport: FC<IProps> = (): ReactElement => {
         />
       </div>
       <Table<WorkReportItem>
-        data={data.filter((item) => {
-          // return  true;
-
-          if (filterValue.week) {
-            const _week = filterValue.week.format(YYYY_DD_MM);
-            console.log("👴2022-02-18 18:00:08 index.tsx line:70", _week);
-            return item.week === _week;
-          }
-
-          return true;
-        })}
+        data={filterData}
         style={{
           marginTop: 10,
         }}
@@ -98,6 +142,9 @@ const WorkReport: FC<IProps> = (): ReactElement => {
           {
             title: "日期",
             dataIndex: "date",
+            render(date) {
+              return `${date} (  ${weekMap[dayjs(date).format("d")]})`;
+            },
           },
           {
             title: "操作",

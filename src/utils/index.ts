@@ -1,5 +1,5 @@
 export function wait(ms = 500) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise((resolve, reject) => setTimeout(reject, ms));
 }
 
 export function download(link: string, name: string) {
@@ -40,3 +40,25 @@ export function uuid(
     result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 }
+
+
+
+export function copyToBoard(value) {
+  const element = document.createElement('textarea')
+  document.body.appendChild(element)
+  element.value = value
+  element.select()
+  if (document.execCommand('copy')) {
+    console.log('👴2022-03-03 16:37:04 index.ts line:52',document.execCommand('copy'))
+    document.body.removeChild(element)
+    return true
+  }
+  document.body.removeChild(element)
+  return false
+}
+
+export async function copy2Clipboard(content) {
+  return navigator.clipboard.writeText(content);
+}
+
+

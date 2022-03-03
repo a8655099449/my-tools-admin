@@ -7,6 +7,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BaseContext from "./context/BaseContext";
 import login from "./pages/login";
 
+import  './pages/my-promise'
+
 const App = () => {
   return (
     <BrowserRouter>

@@ -25,6 +25,7 @@ type SettingOptions = {
 type Option = {
   value: any;
   label: string;
+  [key : string]: any;
 };
 
 type WorkReportItem = {

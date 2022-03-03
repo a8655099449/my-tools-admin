@@ -1,11 +1,12 @@
 import { useMount } from "ahooks";
 import { useState } from "react";
 
-export type useRequestServer<TData> = () => Promise<TData>;
+export type useRequestServer<TData> = (...params: unknown[]) => Promise<TData>;
 
 export type useRequestOptions<TData> = {
   manual?: boolean; // 是否开启手动模式
   initData?: TData;
+  defaultParams?: "";
 };
 
 export type RequestResponse<TData> = {
@@ -19,19 +20,23 @@ const useRequest = <TData = any>(
   options: useRequestOptions<TData> = {}
 ): RequestResponse<TData> => {
   const { manual = false, initData = undefined } = options;
-  const run = async () => {
+  const run: useRequestServer<TData> = async (...params) => {
     setState({ ...state, loading: true });
+    try {
+      const data = await server(...params).finally(() => {
+        setState({ ...state, loading: false });
+      });
 
-    const data = await server().finally(() => {
+      setState({
+        ...state,
+        
+
+      });
+      return data;
+    } catch (error) {
       state.loading == true && setState({ ...state, loading: false });
-    });
-    setState({
-      ...state,
-      data,
-      loading: false,
-    });
-
-    return data;
+      throw error;
+    }
   };
 
   const [state, setState] = useState<RequestResponse<TData>>({
