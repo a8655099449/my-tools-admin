@@ -9,6 +9,7 @@ const useStorage = <T>(
     if (localValue) {
       return JSON.parse(localValue);
     }
+    localStorage.setItem(key, JSON.stringify(defaultValue));
     return defaultValue;
   });
 

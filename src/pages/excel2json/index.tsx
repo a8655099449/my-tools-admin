@@ -19,10 +19,11 @@ import {
 } from "./excel";
 import { useRequest } from "ahooks";
 import FormTest from "./FormTest";
-import { IconExport, IconSwap } from "@arco-design/web-react/icon";
+import { IconExport, IconPrinter, IconSwap } from "@arco-design/web-react/icon";
 import { ColumnProps } from "@arco-design/web-react/es/Table";
 import { download, downloadFile } from "@/utils";
 import { RequestOptions } from "@arco-design/web-react/es/Upload";
+import { printWithBrowser } from "@/utils/print";
 // import Table from "rc-table/lib/Table";
 
 interface IProps {}
@@ -30,6 +31,7 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
   const [dataSource, setDataSource] = useState([]);
 
   const [selectRow, setSelectRow] = useState("");
+  const dom = useRef();
 
   const [columns, setColumns] = useState<ColumnProps[]>([]);
   const ref = useRef({ fileName: "test" });
@@ -81,7 +83,7 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
   };
 
   return (
-    <div>
+    <div ref={dom}>
       {/* <FormTest /> */}
       <div
         style={{
@@ -89,6 +91,8 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
           justifyContent: "space-between",
           marginBottom: 10,
         }}
+
+        draggable
       >
         <Upload
           customRequest={localExcel}
@@ -98,8 +102,17 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
           <Button type="primary">上传文件</Button>
         </Upload>
 
-        <Button icon={<IconSwap />} onClick={() => setVisible(true)}>
+        <Button icon={<IconSwap />} onClick={() => setVisible(true)} draggable>
           json转excel
+        </Button>
+
+        <Button
+          icon={<IconPrinter />}
+          onClick={() => {
+            printWithBrowser({ content: dom.current });
+          }}
+        >
+          打印测试
         </Button>
         <Button
           onClick={() => {
@@ -148,7 +161,6 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
         onCancel={() => setVisible(false)}
         onOk={() => {
           const value = JSON.parse(inputText.trim());
-          console.log("👴2022-02-17 11:11:21 index.tsx line:151", value);
           if (Array.isArray(value)) {
             parseData(value);
             setVisible(false);

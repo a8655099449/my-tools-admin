@@ -8,7 +8,6 @@ export default [
     response: ({ body }) => {
       if (!body) return sendErrorMessage();
       const { acc, pwd } = body;
-      console.log('👴账号登录', acc, pwd)
       if (acc === "admin" && pwd === "123456") {
         return sendSuccessMessage<UserInfo>({
           data: {
