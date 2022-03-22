@@ -8,7 +8,14 @@ import {
   Input,
   Message,
 } from "@arco-design/web-react";
-import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  Component,
+  FC,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import {
   defaultValue,
@@ -21,9 +28,12 @@ import { useRequest } from "ahooks";
 import FormTest from "./FormTest";
 import { IconExport, IconPrinter, IconSwap } from "@arco-design/web-react/icon";
 import { ColumnProps } from "@arco-design/web-react/es/Table";
-import { download, downloadFile } from "@/utils";
+import { download, downloadFile, wait } from "@/utils";
 import { RequestOptions } from "@arco-design/web-react/es/Upload";
+import { ErrorBoundary } from "react-error-boundary";
 import { printWithBrowser } from "@/utils/print";
+import ErrorCatch from "@/components/ErrorCatch";
+import { methodCatch } from "@/components/ErrorCatch/errorCatch";
 // import Table from "rc-table/lib/Table";
 
 interface IProps {}
@@ -91,7 +101,6 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
           justifyContent: "space-between",
           marginBottom: 10,
         }}
-
         draggable
       >
         <Upload
@@ -154,6 +163,8 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
 
       <Table data={dataSource} columns={columns} rowKey="index" />
 
+      <Test />
+
       <Drawer
         width={800}
         visible={visible}
@@ -183,5 +194,31 @@ const ExcelToJson: FC<IProps> = (): ReactElement => {
     </div>
   );
 };
+// @methodCatch(`订单创建失败`)
+class Test extends Component {
+  createError = async () => {
+    await wait(500);
+
+    let a;
+
+    const { b } = a;
+    console.log("👴2022-03-22 14:24:14 index.tsx line:205", b);
+  };
+
+  render() {
+    return (
+      <div>
+        <button
+          onClick={(e) => {
+            this.createError();
+          }}
+        >
+          create err
+        </button>
+        <img src="aaa" alt="" />
+      </div>
+    );
+  }
+}
 
 export default ExcelToJson;

@@ -46,6 +46,7 @@ import NavBar from "@/components/NavBar";
 import lazyload from "@/components/lazyload";
 import { getContext } from "@/context/BaseContext";
 import Auth from "./components/Auth";
+import ErrorCatch from "@/components/ErrorCatch";
 
 const isArray = Array.isArray;
 function getIconFromKey(key) {
@@ -192,30 +193,32 @@ const BaseLayout: FC<IProps> = (): ReactElement => {
             padding: 10,
           }}
         >
-          <Auth>
-            <Switch>
-              {_routes.map(({ component, key, path }) => {
-                return (
-                  <Route
-                    key={key}
-                    path={path || `/${key}`}
-                    component={component}
-                    exact
-                  />
-                );
-              })}
+          <ErrorCatch>
+            <Auth>
+              <Switch>
+                {_routes.map(({ component, key, path }) => {
+                  return (
+                    <Route
+                      key={key}
+                      path={path || `/${key}`}
+                      component={component}
+                      exact
+                    />
+                  );
+                })}
 
-              <Route exact path="/">
-                <Redirect to={`/home`} />
-              </Route>
+                <Route exact path="/">
+                  <Redirect to={`/home`} />
+                </Route>
 
-              <Route
-                exact
-                path="*"
-                component={lazyload(() => import(`../pages/404`))}
-              ></Route>
-            </Switch>
-          </Auth>
+                <Route
+                  exact
+                  path="*"
+                  component={lazyload(() => import(`../pages/404`))}
+                ></Route>
+              </Switch>
+            </Auth>
+          </ErrorCatch>
         </Content>
       </Layout>
     </>
