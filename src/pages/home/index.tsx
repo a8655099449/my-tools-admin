@@ -13,8 +13,7 @@ const index: FC<IProps> = (): ReactElement => {
 
   return (
     <div>
-      <h1>this is home</h1>
-      <div>home is again change</div>
+  
     </div>
   );
 };
