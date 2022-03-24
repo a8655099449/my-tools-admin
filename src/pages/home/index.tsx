@@ -13,11 +13,7 @@ const index: FC<IProps> = (): ReactElement => {
 
   return (
     <div>
-      {Array(1000)
-        .fill("")
-        .map((_, i) => (
-          <li key={i}>{i}</li>
-        ))}
+      <h1>this is home</h1>
     </div>
   );
 };
