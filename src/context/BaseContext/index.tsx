@@ -16,9 +16,7 @@ const BaseContext: FC<IProps> = ({ children }): ReactElement => {
   const p = useSetting();
   const lang = p.setting.lang;
   const u = userHooks();
-
   const r = useRoutes();
-
   function getArcoLocale() {
     switch (lang) {
       case "zh-CN":

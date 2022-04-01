@@ -19,5 +19,4 @@ const index: FC<IProps> = (): ReactElement => {
     </div>
   );
 };
-
 export default index;

@@ -114,6 +114,7 @@ export default function login() {
               placeholder="请输入密码"
               required
               prefix={<IconLock />}
+              onPressEnter={handleLogin}
             />
           </Form.Item>
 

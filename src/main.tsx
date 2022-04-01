@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./global.less";
 import BaseLayout from "./Layout";
@@ -7,7 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BaseContext from "./context/BaseContext";
 import login from "./pages/login";
 
-import  './pages/my-promise'
+import "./pages/my-promise";
 
 const App = () => {
   return (

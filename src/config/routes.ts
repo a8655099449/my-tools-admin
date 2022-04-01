@@ -26,6 +26,10 @@ const routes: RouteItem[] = [
     name: "周报填写",
     key: "work-report",
   },
+  {
+    name: "low-code",
+    key: "low-code",
+  },
 ];
 
 export default routes;
