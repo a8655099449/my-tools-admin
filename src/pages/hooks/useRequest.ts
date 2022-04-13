@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export type useRequestServer<TData> = (...params: unknown[]) => Promise<TData>;
 
+
 export type useRequestOptions<TData> = {
   manual?: boolean; // 是否开启手动模式
   initData?: TData;
@@ -20,6 +21,9 @@ const useRequest = <TData = any>(
   options: useRequestOptions<TData> = {}
 ): RequestResponse<TData> => {
   const { manual = false, initData = undefined } = options;
+
+
+
   const run: useRequestServer<TData> = async (...params) => {
     setState({ ...state, loading: true });
     try {
@@ -29,8 +33,6 @@ const useRequest = <TData = any>(
 
       setState({
         ...state,
-        
-
       });
       return data;
     } catch (error) {
