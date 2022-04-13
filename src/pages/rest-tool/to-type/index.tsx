@@ -1,5 +1,4 @@
 import { copy2Clipboard, parseObjectType } from "@/utils";
-import { isJson } from "@/utils/is";
 import { Button, Card, Input } from "@arco-design/web-react";
 import React, { FC, ReactElement, useMemo, useState } from "react";
 import highlight from "highlight.js";
