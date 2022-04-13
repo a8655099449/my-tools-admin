@@ -32,9 +32,13 @@ export const useRoutes = (): TUseRoutes => {
   };
 
   const _currentRoute = useMemo(() => {
-    return findRouteByKey(pathname, routes);
+    const r = findRouteByKey(pathname, routes);
+
+    //
+    document.title = pathname === "/login" ? "登录" : r?.name || `404`;
+
+    return r;
   }, [pathname]);
 
-
-  return { currentRoute:_currentRoute };
+  return { currentRoute: _currentRoute };
 };

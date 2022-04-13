@@ -26,6 +26,20 @@ const routes: RouteItem[] = [
     name: "周报填写",
     key: "work-report",
   },
+  {
+    name: "拖拽demo",
+    key: "low-code",
+  },
+  {
+    name: "其他工具",
+    key: "rest-tool",
+    children: [
+      {
+        name: "类型转换",
+        key: "rest-tool/to-type",
+      },
+    ],
+  },
 ];
 
 export default routes;

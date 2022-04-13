@@ -13,13 +13,10 @@ const index: FC<IProps> = (): ReactElement => {
 
   return (
     <div>
-      {Array(1000)
-        .fill("")
-        .map((_, i) => (
-          <li key={i}>{i}</li>
-        ))}
+      <h1>is change A</h1>
+      <h2>is change B</h2>
+      <h3>is change C</h3>
     </div>
   );
 };
-
 export default index;
