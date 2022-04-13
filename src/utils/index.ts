@@ -41,24 +41,59 @@ export function uuid(
   return result;
 }
 
-
-
 export function copyToBoard(value) {
-  const element = document.createElement('textarea')
-  document.body.appendChild(element)
-  element.value = value
-  element.select()
-  if (document.execCommand('copy')) {
-    console.log('👴2022-03-03 16:37:04 index.ts line:52',document.execCommand('copy'))
-    document.body.removeChild(element)
-    return true
+  const element = document.createElement("textarea");
+  document.body.appendChild(element);
+  element.value = value;
+  element.select();
+  if (document.execCommand("copy")) {
+    console.log(
+      "👴2022-03-03 16:37:04 index.ts line:52",
+      document.execCommand("copy")
+    );
+    document.body.removeChild(element);
+    return true;
   }
-  document.body.removeChild(element)
-  return false
+  document.body.removeChild(element);
+  return false;
 }
 
 export async function copy2Clipboard(content) {
   return navigator.clipboard.writeText(content);
 }
 
+export function getType(obj) {
+  let type = typeof obj;
+  if (type !== "object") {
+    // 先进行typeof判断，如果是基础数据类型，直接返回
+    return type;
+  }
 
+  const map = {
+    array: "any[]",
+    object: `{}`,
+  };
+  // 对于typeof返回结果是object的，再进行如下的判断，正则返回结果
+
+  const t = Object.prototype.toString
+    .call(obj)
+    .replace(/^\[object (\S+)\]$/, "$1")
+    .toLowerCase();
+
+  return map[t] || t;
+}
+
+// const  = (second) => { third }
+
+export const parseObjectType = (obj: object): string => {
+  const _obj = { ...obj };
+
+  const loop = () => {
+    Object.keys(_obj).forEach((key) => {
+      _obj[key] = getType(obj[key]);
+    });
+  };
+  loop();
+
+  return JSON.stringify(_obj, null, 2).replace(/"/g, "").replace(/,/g, ";");
+};

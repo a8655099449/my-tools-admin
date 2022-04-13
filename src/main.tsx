@@ -5,6 +5,7 @@ import "@arco-design/web-react/dist/css/arco.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BaseContext from "./context/BaseContext";
 import login from "./pages/login";
+import 'highlight.js/styles/github.css';
 
 import "./pages/my-promise";
 

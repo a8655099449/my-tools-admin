@@ -27,8 +27,18 @@ const routes: RouteItem[] = [
     key: "work-report",
   },
   {
-    name: "low-code",
+    name: "拖拽demo",
     key: "low-code",
+  },
+  {
+    name: "其他工具",
+    key: "rest-tool",
+    children: [
+      {
+        name: "类型转换",
+        key: "rest-tool/to-type",
+      },
+    ],
   },
 ];
 
