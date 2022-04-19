@@ -38,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "@vitejs/plugin-react": "^1.0.7",
+    "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
     "cz-customizable": "^6.3.0",
     "eslint": "^8.13.0",
@@ -62,9 +63,6 @@
   "config": {
     "commitizen": {
       "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": ".cz-config.js"
     }
   }
 }
