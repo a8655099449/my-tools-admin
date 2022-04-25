@@ -1,1 +1,0 @@
-import{j as e,R as t,y as r,B as u}from"./vendor.a38efb6e.js";const s=()=>e("div",{children:e(t,{status:"404",subTitle:"\u9875\u9762\u672A\u627E\u5230",extra:e(r,{replace:!0,to:"/",children:e(u,{type:"primary",children:"\u8FD4\u56DE"},"back")})})});export{s as default};
