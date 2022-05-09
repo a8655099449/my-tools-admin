@@ -1,5 +1,5 @@
 export function wait(ms = 500) {
-	return new Promise((resolve, reject) => setTimeout(reject, ms))
+	return new Promise((resolve, reject) => setTimeout(resolve, ms))
 }
 
 export function download(link: string, name: string) {
@@ -78,7 +78,7 @@ export function copy2Clipboard(textToCopy) {
 export function getType(obj) {
 	let type = typeof obj
 	if (type !== 'object') {
-		// 先进行typeof判断，如果是基础数据类型，直接返回
+		// 先进行typeof判断，如果是基础数据类型，直接返回l
 		return type
 	}
 

@@ -2,7 +2,7 @@ import { copy2Clipboard, parseObjectType } from '@/utils'
 import { Button, Card, Input } from '@arco-design/web-react'
 import React, { FC, ReactElement, useMemo, useState } from 'react'
 import highlight from 'highlight.js'
-import { IconCopy, IconCopyright } from '@arco-design/web-react/icon'
+import { IconCodeBlock, IconCopy, IconCopyright } from '@arco-design/web-react/icon'
 
 const ToType: FC = (): ReactElement => {
 	const [inputValue, setInputValue] = useState(
@@ -21,7 +21,6 @@ const ToType: FC = (): ReactElement => {
       new Object(${_inputValue})
     `)
 			return parseObjectType(object)
-			console.log('👴parseObjectType>>>')
 		} catch (error) {
 			return ''
 		}
@@ -51,7 +50,7 @@ const ToType: FC = (): ReactElement => {
 					style={{
 						marginLeft: 10,
 					}}
-					icon={<IconCopy />}
+					icon={<IconCodeBlock />}
 				>
 					复制
 				</Button>

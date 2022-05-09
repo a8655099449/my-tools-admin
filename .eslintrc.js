@@ -38,6 +38,7 @@ module.exports = {
 			'never'
 		],
 		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-empty-interface": "off",
 		"prefer-const": "off",
 		// suppress errors for missing 'import React' in files
 		"react/react-in-jsx-scope": "off",

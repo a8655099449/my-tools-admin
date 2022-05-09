@@ -1,41 +1,52 @@
 // import { Dayjs } from "dayjs";
 
-type Lang = "zh-CN" | "en-US";
+type Lang = 'zh-CN' | 'en-US'
 
 type Locale = {
-  [k in Lang]: {
-    [key in string]: string;
-  };
-};
+	[k in Lang]: {
+		[key in string]: string
+	}
+}
 
 type UserInfo = {
-  acc?: string;
-  pwd?: string;
-  auth?: string[];
-  remember?: boolean;
-  name?: string;
-};
+	acc?: string
+	pwd?: string
+	auth?: string[]
+	remember?: boolean
+	name?: string
+}
 type SettingOptions = {
-  themeColor: string;
-  lang: Lang;
-  theme: "dark" | "light";
-  collapsed: boolean;
-};
+	themeColor: string
+	lang: Lang
+	theme: 'dark' | 'light'
+	collapsed: boolean
+}
 
 type Option = {
-  value: any;
-  label: string;
-  [key : string]: any;
-};
+	value: any
+	label: string
+	[key: string]: any
+}
 
 type WorkReportItem = {
-  week: string | Dayjs;
-  date: string | Dayjs;
-  content: string;
-  project: string;
-  workTime: number;
-  id: string;
-  projectName?: string;
-};
+	week: string | Dayjs
+	date: string | Dayjs
+	content: string
+	project: string
+	workTime: number
+	id: string
+	projectName?: string
+}
 
-type ModalHandleType = "add" | "edit";
+type ModalHandleType = 'add' | 'edit'
+
+type FileHandleType = 'createText' | 'makeDir' | 'copy'
+
+type FileItemType = {
+	fileName: string
+	fileType: 'text' | 'dir'
+	children?: fileType[]
+	id: any
+	path: string
+	content?: string
+}
