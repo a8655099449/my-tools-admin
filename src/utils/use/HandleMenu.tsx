@@ -1,6 +1,6 @@
 import IconDir from '@/components/Icon/IconDir'
 import { Menu } from '@arco-design/web-react'
-import { IconCopy, IconFile } from '@arco-design/web-react/icon'
+import { IconCopy, IconDelete, IconEdit, IconFile, IconPaste } from '@arco-design/web-react/icon'
 import React, { FC, ReactElement, useMemo } from 'react'
 type FileHandleTypeWithOptions = {
 	type: FileHandleType
@@ -20,7 +20,12 @@ const HandleMenu: FC<IProps> = ({ visible, x, y, onMenuClick, typeList = ['creat
 			const map = {
 				createText: {
 					content: (
-						<Menu.Item key="createText">
+						<Menu.Item
+							key="createText"
+							onClick={e => {
+								console.log('👴2022-05-24 14:09:51 HandleMenu.tsx line:25', e)
+							}}
+						>
 							<IconFile />
 							新建文件
 						</Menu.Item>
@@ -42,9 +47,33 @@ const HandleMenu: FC<IProps> = ({ visible, x, y, onMenuClick, typeList = ['creat
 						</Menu.Item>
 					),
 				},
+				rename: {
+					content: (
+						<Menu.Item key="rename">
+							<IconEdit />
+							重命名
+						</Menu.Item>
+					),
+				},
+				delete: {
+					content: (
+						<Menu.Item key="delete">
+							<IconDelete />
+							删除
+						</Menu.Item>
+					),
+				},
+				paste: {
+					content: (
+						<Menu.Item key="paste">
+							<IconPaste />
+							粘贴
+						</Menu.Item>
+					),
+				},
 			}
 
-			return map[key]?.content || null
+			return map?.[key]?.content || null
 		}
 
 		return typeList.map(item => {
@@ -59,17 +88,20 @@ const HandleMenu: FC<IProps> = ({ visible, x, y, onMenuClick, typeList = ['creat
 		<div
 			style={{
 				width: 200,
-				position: 'absolute',
+				position: 'fixed',
 				left: x,
 				top: y,
 				visibility: visible ? 'visible' : 'hidden',
 				boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.26)',
 				textAlign: 'left',
+				zIndex: 99999,
+				backgroundColor: '#fff',
 			}}
 		>
 			<Menu
 				selectedKeys={[]}
 				onClickMenuItem={(e, event) => {
+					console.log('👴menu click')
 					event.stopPropagation() // 阻止冒泡
 					onMenuClick?.(e as FileHandleType)
 				}}

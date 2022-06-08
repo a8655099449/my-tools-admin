@@ -40,7 +40,7 @@ type WorkReportItem = {
 
 type ModalHandleType = 'add' | 'edit'
 
-type FileHandleType = 'createText' | 'makeDir' | 'copy'
+type FileHandleType = 'createText' | 'makeDir' | 'copy' | 'rename' | 'delete' | 'paste'
 
 type FileItemType = {
 	fileName: string
@@ -49,4 +49,5 @@ type FileItemType = {
 	id: any
 	path: string
 	content?: string
+	select?: boolean
 }

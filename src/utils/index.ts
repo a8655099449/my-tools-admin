@@ -1,3 +1,6 @@
+import { Modal } from '@arco-design/web-react'
+import { ConfirmProps } from '@arco-design/web-react/es/Modal/confirm'
+
 export function wait(ms = 500) {
 	return new Promise((resolve, reject) => setTimeout(resolve, ms))
 }
@@ -96,8 +99,6 @@ export function getType(obj) {
 	return map[t] || t
 }
 
-// const  = (second) => { third }
-
 export const parseObjectType = (obj: object): string => {
 	const _obj = { ...obj }
 
@@ -109,4 +110,29 @@ export const parseObjectType = (obj: object): string => {
 	loop()
 
 	return JSON.stringify(_obj, null, 2).replace(/"/g, '').replace(/,/g, ';')
+}
+
+export const confirm = (params: ConfirmProps) =>
+	new Promise<void>((resolve, reject) => {
+		const { title = '确认提示', content = '是否确认？', ...rest } = params || {}
+
+		Modal.confirm({
+			title,
+			content,
+			...rest,
+			onOk() {
+				resolve()
+			},
+			onCancel() {
+				reject('cancel')
+			},
+		})
+	})
+// 判断两个dom是否重合
+export const isOverlap = (nodes: HTMLDivElement[]) => {
+	const [node1, node2] = nodes
+	const rect1 = node1.getBoundingClientRect()
+	const rect2 = node2.getBoundingClientRect()
+	const overlap = !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom)
+	return overlap
 }

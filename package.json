@@ -12,6 +12,7 @@
     "@arco-design/web-react": "^2.28.2",
     "@loadable/component": "^5.15.2",
     "ahooks": "^3.1.9",
+    "await-to-js": "^3.0.0",
     "axios": "^0.26.0",
     "bizcharts": "^4.1.15",
     "dayjs": "^1.10.7",

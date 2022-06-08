@@ -43,12 +43,11 @@ const useRightMenu = ({ onMenuClick, typeList }: UseRightMenuProps = {}) => {
 		store.current.div = document.createElement('div')
 		ref.current.addEventListener('contextmenu', onContextmenu)
 		ref.current.appendChild(store.current.div)
-
 		document.body.addEventListener('click', closeMenu)
 
 		return () => {
 			ref.current?.removeChild(store.current.div)
-			ref.current.removeEventListener('contextmenu', onContextmenu)
+			ref.current?.removeEventListener('contextmenu', onContextmenu)
 			document.body.removeEventListener('click', closeMenu)
 		}
 	}, [])

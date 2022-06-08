@@ -5,24 +5,53 @@ import { Empty } from '@arco-design/web-react'
 import { FC, ReactElement } from 'react'
 import useFileHandle from './handle'
 
+import styles from './index.module.less'
+
 interface IProps {}
 
 const File: FC<IProps> = (): ReactElement => {
-	const { context, fileList } = useFileHandle()
+	const { context, fileList, onCopy, onFileRename, onDelete, onFileItemClick, handleClickWrap } = useFileHandle()
+
 	return (
 		<div
 			style={{
 				height: 'calc(100vh - 80px)',
-				display: 'flex',
-				flexWrap: 'wrap',
 			}}
 			ref={context}
+			onClick={handleClickWrap}
 		>
-			{fileList.length === 0 && <Empty description="暂无文件" />}
-
-			{fileList.map(item => (
-				<FileText {...item} key={item.id} />
-			))}
+			<div className={`${styles['content-wrap']}`}>
+				{fileList.length === 0 && <Empty description="暂无文件" />}
+				<div
+					style={{
+						position: 'relative',
+						zIndex: 1,
+					}}
+				>
+					{fileList.map(item => (
+						<FileText
+							{...item}
+							key={item.id}
+							onCopy={() => {
+								onCopy(item)
+							}}
+							onRename={e => {
+								onFileRename({
+									...item,
+									fileName: e,
+								})
+							}}
+							onDelete={() => {
+								onDelete(item)
+							}}
+							onClick={e => {
+								e.stopPropagation()
+								onFileItemClick(item)
+							}}
+						/>
+					))}
+				</div>
+			</div>
 		</div>
 	)
 }
