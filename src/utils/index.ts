@@ -46,7 +46,6 @@ export function copyToBoard(value) {
 	element.value = value
 	element.select()
 	if (document.execCommand('copy')) {
-		console.log('👴2022-03-03 16:37:04 index.ts line:52', document.execCommand('copy'))
 		document.body.removeChild(element)
 		return true
 	}
@@ -74,6 +73,7 @@ export function copy2Clipboard(textToCopy) {
 			// 执行复制命令并移除文本框
 			document.execCommand('copy') ? res() : rej()
 			textArea.remove()
+			document.body.removeChild(textArea)
 		})
 	}
 }
